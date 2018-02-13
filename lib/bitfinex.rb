@@ -1,3 +1,5 @@
+require 'ostruct'
+
 require 'uri'
 require 'base64'
 require 'openssl'
@@ -35,4 +37,6 @@ require 'bitfinex/v2/utils'
 require 'bitfinex/v2/personal'
 require 'bitfinex/v2/trading'
 require 'bitfinex/v2/margin'
+require 'bitfinex/v2/positions'
+require 'bitfinex/v2/orders'
 
