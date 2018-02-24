@@ -1,8 +1,7 @@
 module Bitfinex
   module V2::PositionsClient
-    def positions pair = nil
+    def positions
       resp = authenticated_post("auth/r/positions").body
-      resp.select!{|pos| pos[0] == pair} if pair
       resp.map do |pos|
         OpenStruct.new({
           symbol: pos[0],
@@ -17,6 +16,10 @@ module Bitfinex
           leverage: pos[9]
         })
       end
+    rescue Exception => ex
+      p ex.inspect
+      p resp
+      raise
     end
   end
 end

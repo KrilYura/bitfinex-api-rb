@@ -38,9 +38,8 @@ module Bitfinex
       ])
     end
 
-    def orders pair = nil
+    def orders
       resp = authenticated_post('auth/r/orders').body
-      resp.select!{|ord| ord[0] == pair} if pair
       resp.map do |ord|
         OpenStruct.new({
           id: ord[0],
@@ -70,8 +69,10 @@ module Bitfinex
           placed_id: ord[24],
         })
       end
-
+    rescue Exception => ex
+      p ex.inspect
+      p resp
+      raise
     end
-
   end
 end
