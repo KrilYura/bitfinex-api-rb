@@ -26,6 +26,8 @@ module Bitfinex
       when 404
         raise NotFoundError, env.body['message']
       when 500
+        p '500 error for some reason !!!!!!!!'
+        p env
         raise InternalServerError, env.body['message']
       else
         super
