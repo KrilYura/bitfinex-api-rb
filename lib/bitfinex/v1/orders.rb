@@ -117,5 +117,9 @@ module Bitfinex
       authenticated_post("orders").body
     end
 
+    def orders_hist
+      authenticated_post("orders/hist").body
+    end
+
   end
 end

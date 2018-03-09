@@ -74,5 +74,42 @@ module Bitfinex
       p resp
       raise
     end
+
+    def orders_history pair, params = {}
+      resp = authenticated_post("auth/r/orders/#{pair}/hist", params: params).body
+      resp.map do |ord|
+        OpenStruct.new({
+          id: ord[0],
+          gid: ord[1],
+          cid: ord[2],
+          symbol: ord[3],
+          mts_create: ord[4],
+          mts_update: ord[5],
+          amount: ord[6],
+          amount_orig: ord[7],
+          type: ord[8],
+          type_prev: ord[9],
+          # _placeholder: ord[10],
+          # _placeholder: ord[11],
+          flags: ord[12],
+          status: ord[13],
+          # _placeholder: ord[14],
+          # _placeholder: ord[15],
+          price: ord[16],
+          price_avg: ord[17],
+          price_trailing: ord[18],
+          price_aux_limit: ord[19],
+          # _placeholder: ord[20],
+          # _placeholder: ord[21],
+          # _placeholder: ord[22],
+          hidden: ord[23],
+          placed_id: ord[24],
+        })
+      end
+    rescue Exception => ex
+      p ex.inspect
+      p resp
+      raise
+    end
   end
 end
