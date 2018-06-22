@@ -4,6 +4,7 @@ module Bitfinex
   class ClientError < Exception; end
   class ParamsError < ClientError; end
   class InvalidAuthKeyError < ClientError; end
+  class TooManyRequests < ClientError; end
   class BlockMissingError < ParamsError; end
   class ServerError < Exception; end # Error reported back by Binfinex server
   class ConnectionClosed < Exception; end
