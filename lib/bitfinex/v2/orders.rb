@@ -41,8 +41,6 @@ module Bitfinex
     def orders
       resp = authenticated_post('auth/r/orders').body
 
-      raise TooManyRequests.new if resp.to_s.include?('ratelimit')
-
       resp.map do |ord|
         OpenStruct.new({
           id: ord[0],
@@ -80,6 +78,7 @@ module Bitfinex
 
     def orders_history pair, params = {}
       resp = authenticated_post("auth/r/orders/#{pair}/hist", params: params).body
+
       resp.map do |ord|
         OpenStruct.new({
           id: ord[0],

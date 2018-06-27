@@ -2,6 +2,7 @@ module Bitfinex
   module V2::PositionsClient
     def positions
       resp = authenticated_post("auth/r/positions").body
+
       resp.map do |pos|
         OpenStruct.new({
           symbol: pos[0],
