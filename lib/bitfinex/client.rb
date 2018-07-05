@@ -29,6 +29,8 @@ module Bitfinex
         extend Bitfinex::V2::PersonalClient
         extend Bitfinex::V2::TradingClient
         extend Bitfinex::V2::MarginClient
+        extend Bitfinex::V2::PositionsClient
+        extend Bitfinex::V2::OrdersClient
       end
 
       @mutex = Mutex.new

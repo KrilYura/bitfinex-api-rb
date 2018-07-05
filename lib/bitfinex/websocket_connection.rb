@@ -193,7 +193,7 @@ module Bitfinex
       def send(msg)
         raise ConnectionClosed if stopped?
         connect! unless alive?
-        msg = msg.is_a?(Hash) ? msg.to_json : msg
+        msg = msg.is_a?(Hash) || msg.is_a?(Array) ? msg.to_json : msg
         @ws.send(msg)
       end
 

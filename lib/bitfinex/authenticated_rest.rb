@@ -32,6 +32,10 @@ module Bitfinex
           req.headers['bfx-apikey'] = config.api_key
         end
       end
+
+      raise TooManyRequests.new if response.inspect.include?('ratelimit')
+
+      response
     end
 
     def build_payload(url, params = {}, nonce)

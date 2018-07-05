@@ -15,7 +15,7 @@ module Bitfinex
     # @example:
     #   client.new_order("usdbtc", 100, "market", "sell", 0)
     def new_order(symbol, amount, type, side, price = nil, params = {})
-      check_params(params, %i{is_hidden is_postonly ocoorder buy_price_oco})
+      check_params(params, %i{is_hidden is_postonly ocoorder buy_price_oco, sell_stoplimit_price})
 
       # for 'market' order, we need to pass a random positive price, not nil
       price ||= 0.001 if type == "market" || type == "exchange market"
@@ -115,6 +115,10 @@ module Bitfinex
     #   client.orders
     def orders
       authenticated_post("orders").body
+    end
+
+    def orders_hist
+      authenticated_post("orders/hist").body
     end
 
   end

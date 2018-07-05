@@ -23,5 +23,11 @@ module Bitfinex
       raise BlockMissingError unless block_given?
       register_channel pair: pair, channel: "ticker", &block
     end
+
+    def listen_candles(symbol="tBTCUSD", time_frame="1m", &block)
+      raise BlockMissingError unless block_given?
+      key = "trade:#{time_frame}:#{symbol}"
+      register_channel key: key, channel: 'candles', &block
+    end
   end
 end

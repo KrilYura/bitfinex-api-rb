@@ -4,6 +4,7 @@ module Bitfinex
   class ClientError < Exception; end
   class ParamsError < ClientError; end
   class InvalidAuthKeyError < ClientError; end
+  class TooManyRequests < ClientError; end
   class BlockMissingError < ParamsError; end
   class ServerError < Exception; end # Error reported back by Binfinex server
   class ConnectionClosed < Exception; end
@@ -26,6 +27,8 @@ module Bitfinex
       when 404
         raise NotFoundError, env.body['message']
       when 500
+        p '500 error for some reason !!!!!!!!'
+        p env
         raise InternalServerError, env.body['message']
       else
         super
