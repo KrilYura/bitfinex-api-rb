@@ -6,7 +6,8 @@ module Bitfinex
     # Make an HTTP GET request
     def get(url, params={})
       rest_connection.get do |req|
-        req.url build_url(url)
+        version = params.delete(:version)
+        req.url build_url(url, version)
         req.headers['Content-Type'] = 'application/json'
         req.headers['Accept'] = 'application/json'
         params.each do |k,v|
@@ -30,8 +31,13 @@ module Bitfinex
       @conn ||= new_rest_connection
     end
 
-    def build_url(url)
-      URI.join(config.api_endpoint, url).path
+    def build_url(url, version = nil)
+      api_endpoint = if version && version == 1
+                       'https://api.bitfinex.com/v1/'
+                     else
+                       config.api_endpoint
+                     end
+      URI.join(api_endpoint, url).path
     end
 
     def new_rest_connection

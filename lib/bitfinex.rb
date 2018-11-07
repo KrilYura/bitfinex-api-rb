@@ -39,4 +39,5 @@ require 'bitfinex/v2/trading'
 require 'bitfinex/v2/margin'
 require 'bitfinex/v2/positions'
 require 'bitfinex/v2/orders'
+require 'bitfinex/v2/symbols'
 
