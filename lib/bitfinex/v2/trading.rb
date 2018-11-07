@@ -79,7 +79,7 @@ module Bitfinex
     #
     # @example:
     #   client.trades("tETHUSD")
-    def history_trades(symbol="tBTCUSD", params={})
+    def trades_history(symbol="tBTCUSD", params={})
       check_params(params, %i{limit start end sort})
       resp = get("trades/#{symbol}/hist", params).body
 
