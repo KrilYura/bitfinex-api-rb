@@ -65,6 +65,35 @@ module Bitfinex
       get("trades/#{symbol}", params).body
     end
 
+    # Trades endpoint includes all the pertinent details
+    # of the trade, such as price, size and time.
+    #
+    # @param symbol [string] the name of the symbol
+    # @param params :limit [int32] Number of records
+    # @param params :start [int32] Millisecond start time
+    # @param params :end   [int32] Millisecond end time
+    # @param params :sort  [int32] if = 1 it sorts
+    #     results returned with old > new
+    #
+    # @return [Array]
+    #
+    # @example:
+    #   client.trades("tETHUSD")
+    def history_trades(symbol="tBTCUSD", params={})
+      check_params(params, %i{limit start end sort})
+      resp = get("trades/#{symbol}/hist", params).body
+
+      resp.map do |ord|
+        OpenStruct.new({
+          symbol: symbol,
+          id: ord[0],
+          mts_create: ord[1],
+          amount: ord[2],
+          price: ord[3],
+        })
+      end
+    end
+
     # # Get active orders
     # #
     # # example:
