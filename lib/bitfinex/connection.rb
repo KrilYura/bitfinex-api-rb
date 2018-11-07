@@ -20,7 +20,7 @@ module Bitfinex
 
     # Make sure parameters are allowed for the HTTP call
     def check_params(params, allowed_params)
-      if (params.keys - allowed_params).empty?
+      if (params.keys.map(&:to_sym) - allowed_params).empty?
         return params
       else
         raise Bitfinex::ParamsError
