@@ -26,6 +26,8 @@ module Bitfinex
         raise ForbiddenError, env.body['message']
       when 404
         raise NotFoundError, env.body['message']
+      when 429
+        raise TooManyRequests.new env.body['message']
       when 500
         p '500 error for some reason !!!!!!!!'
         p env
